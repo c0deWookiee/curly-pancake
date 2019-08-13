@@ -25,6 +25,4 @@ app.use('/api/auth', authRoute);
 //serve static
 app.use(express.static(path.resolve(__dirname, '/../dist')));
 
-app.listen(port, () => {
-  console.log('hello on port ' + port);
-});
+app.listen(port, () => console.log(`server running port: ${port}`));
