@@ -6,5 +6,7 @@ const router = require('express').Router();
  * @access    public
  */
 
-router.get('/', (req, res) => res.send('profile Router'));
+router.get('/', (req, res) => {
+  res.send('profile Router');
+});
 module.exports = router;
