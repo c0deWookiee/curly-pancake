@@ -10,13 +10,19 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
-    "start": "webpack-dev-server --hot --mode development"
+    "start": "webpack-dev-server --hot --mode development",
+    "server": "nodemon server"
   },
   "dependencies": {
+    "config": "^3.2.2",
+    "express-validator": "^6.1.1",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.9",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-hot-loader": "^4.12.11",
+    "request": "^2.88.0",
     "validator": "^11.1.0"
   },
   "devDependencies": {
@@ -25,6 +31,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.1",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
     "node-sass": "^4.12.0",
