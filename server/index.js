@@ -1,20 +1,33 @@
-const express = require('express');
-const path = require('path');
-const port = process.env.PORT || 27015;
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+//router
+const usersRouter = require("./api/users.js");
+const profile = require("./api/profile.js");
+const posts = require("./api/posts.js");
+//db
+const db = require("../config/db")();
+
 const app = express();
-const router = require('./routes.js');
-const connectDB = require('../config/db');
 
-connectDB();
+//middleware
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/', router);
+//passport middleware
 
-app.use(express.static(path.resolve(__dirname, '/../dist')));
+app.use(passport.initialize());
 
-app.listen(port, () => {
-  console.log('hello on port ' + port);
-});
+//passport config
+require("./config/passport.js")(passport);
+
+//Use Routes
+
+app.use("/api/users", usersRouter);
+app.use("/api/profile", profile);
+app.use("/api/posts", posts);
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`server running port: ${port}`));
