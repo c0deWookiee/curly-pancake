@@ -3,7 +3,7 @@ const Profile = require('../../database/models/Profile.js');
 const auth = require('../../middleware/authentication.js');
 const User = require('../../database/models/User.js');
 
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 
 /**
  * @router     GET api/profile/me
@@ -145,12 +145,34 @@ router.get('/user/:user_id', async (req, res) => {
         const profile = await Profile.findOne({
             user: req.params.user_id
         }).populate('user', ['names', 'avatar']);
-        if (!profile)
-            return res
-                .status(400)
-                .json({ msg: 'there is no profile for this user' });
+        if (!profile) return res.status(400).json({ msg: 'profile not found' });
 
         res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'profile not found' });
+        }
+        res.status(500).send('server Error');
+    }
+});
+
+/**
+ * @router     DELETE api/profile/user/:user_id
+ * @desc      delete profile by user id
+ * @access    private
+ */
+
+router.delete('/', auth, async (req, res) => {
+    try {
+        //@todo remove users posts
+        //deletes profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+
+        //removes user
+        await User.findOneAndRemove({ _id: req.user.id });
+
+        res.json({ msg: 'user erased' });
     } catch (err) {
         console.error(err.message);
 

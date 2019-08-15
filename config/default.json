@@ -1,6 +1,7 @@
 {
-    "mongoURI": "mongodb+srv://c0dewookiee:haikuoverlord11@cluster0-onmph.mongodb.net/test?retryWrites=true&w=majority",
-
+    "mongoURI": {
+        "daniel": "mongodb+srv://c0dewookiee:haikuoverlord11@cluster0-onmph.mongodb.net/test?retryWrites=true&w=majority",
+        "alex": "mongodb+srv://alixlii:alixlii@cluster0-hqeub.mongodb.net/test?retryWrites=true&w=majority"
+    },
     "jwtSecret": "thesecret"
 }
-//   "mongoURI": "mongodb+srv://alixlii:alixlii@cluster0-hqeub.mongodb.net/test?retryWrites=true&w=majority",
