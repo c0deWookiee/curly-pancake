@@ -6,7 +6,7 @@ const User = require('../../database/models/User.js');
 const { check, validationResult } = require('express-validator/check');
 
 /**
- * @router     GET api/profile
+ * @router     GET api/profile/me
  * @desc      get current user
  * @access    public
  */
@@ -113,7 +113,49 @@ router.post(
             console.error(err.message);
             res.status(500).send('server error');
         }
-        res.send('hello');
     }
 );
+
+/**
+ * @router     GET api/profile
+ * @desc      get all profiles
+ * @access    public
+ */
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', [
+            'names',
+            'avatar'
+        ]);
+        res.json(profiles);
+    } catch (err) {
+        console.error(err.message);
+
+        res.status(500).send('server Error');
+    }
+});
+
+/**
+ * @router     GET api/profile/user/:user_id
+ * @desc      get profile by user id
+ * @access    public
+ */
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({
+            user: req.params.user_id
+        }).populate('user', ['names', 'avatar']);
+        if (!profile)
+            return res
+                .status(400)
+                .json({ msg: 'there is no profile for this user' });
+
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+
+        res.status(500).send('server Error');
+    }
+});
+
 module.exports = router;
