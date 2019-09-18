@@ -99,6 +99,7 @@ router.post(
             let profile = await Profile.findOne({ user: req.user.id });
 
             if (profile) {
+                //here if the profile exists, we will use find one and  update the database with new fields, and passing in the true option to new, making sure that the dbServer returns the updated copy and not the old one
                 profile = await Profile.findOneAndUpdate(
                     { user: req.user.id },
                     { $set: profileFields },
@@ -123,8 +124,8 @@ router.post(
  */
 router.get('/', async (req, res) => {
     try {
-        const profiles = await Profile.find().populate('user', [
-            'names',
+        const profiles = await Profile.find(/**all */).populate('user', [
+            'name',
             'avatar'
         ]);
         res.json(profiles);
@@ -144,12 +145,12 @@ router.get('/user/:user_id', async (req, res) => {
     try {
         const profile = await Profile.findOne({
             user: req.params.user_id
-        }).populate('user', ['names', 'avatar']);
+        }).populate('user', ['name', 'avatar']);
         if (!profile) return res.status(400).json({ msg: 'profile not found' });
 
         res.json(profile);
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message, 'tryCatchline145');
         if (err.kind == 'ObjectId') {
             return res.status(400).json({ msg: 'profile not found' });
         }
@@ -241,8 +242,8 @@ router.put(
 );
 
 /**
- * @router    PUT api/profile/experience
- * @desc      add profile by user id
+ * @router    DELETE api/profile/experience
+ * @desc      delete profile experience
  * @access    private
  */
 
@@ -260,5 +261,65 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+/**
+ * @router    PUT api/profile/education
+ * @desc      add profile education
+ * @access    private
+ */
+
+router.put(
+    '/education',
+    [
+        auth,
+        [
+            check('school', 'School is required')
+                .not()
+                .isEmpty(),
+            check('degree', 'Degree is required')
+                .not()
+                .isEmpty(),
+            check('from', 'From date is required')
+                .not()
+                .isEmpty()
+        ]
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const {
+            title,
+            company,
+            location,
+            from,
+            to,
+            current,
+            description
+        } = req.body;
+
+        const newExp = {
+            title,
+            company,
+            location,
+            from,
+            to,
+            current,
+            description
+        };
+
+        try {
+            const profile = await Profile.findOne({ user: req.user.id });
+            profile.experience.unshift(newExp);
+            await profile.save();
+            res.json(profile);
+        } catch (error) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 
 module.exports = router;
