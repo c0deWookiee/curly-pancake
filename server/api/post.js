@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const { check, validationResult } = require('express-validator/check');
-const auth = require('../../middleware/authentication.js');
+const auth = require('../../middleware/authentication');
 
 const Post = require('../../database/models/Post');
-const Profile = require('../../database/models/Profile');
-const User = require('../../database/models/User');
-=======
-const router = require("express").Router();
-const { check, validationResult } = require("express-validator/check");
-const auth = require("../../middleware/authentication");
-
-const Post = require("../../models/Post");
 // const Profile = require("../../models/Profile");
-const User = require("../../models/User");
->>>>>>> 131602a8db27711e65714ca24624e48a56e82129
+const User = require('../../database/models/User');
 
 // @route    POST api/posts
 // @desc     Create a post
