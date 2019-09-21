@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Profile = require("../../database/models/Profile.js");
+const request = require("request");
+const config = require("config");
 const auth = require("../../middleware/authentication.js");
 const User = require("../../database/models/User.js");
 
@@ -295,19 +297,19 @@ router.put(
     }
 
     const {
-      title,
-      company,
-      location,
+      school,
+      degree,
+      fieldofstudy,
       from,
       to,
       current,
       description
     } = req.body;
 
-    const newExp = {
-      title,
-      company,
-      location,
+    const newEdu = {
+      school,
+      degree,
+      fieldofstudy,
       from,
       to,
       current,
@@ -316,7 +318,7 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience.unshift(newExp);
+      profile.education.unshift(newEdu);
       await profile.save();
       res.json(profile);
     } catch (error) {
