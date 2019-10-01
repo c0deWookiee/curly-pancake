@@ -4,7 +4,7 @@ const db = config.get('mongoURI');
 
 module.exports = async () => {
     try {
-        await mongoose.connect(db.alex, {
+        await mongoose.connect(db.daniel, {
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false

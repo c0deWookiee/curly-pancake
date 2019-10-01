@@ -6,7 +6,7 @@ const Post = require('../../database/models/Post');
 // const Profile = require("../../models/Profile");
 const User = require('../../database/models/User');
 
-// @route    POST api/posts
+// @route    POST api/post
 // @desc     Create a post
 // @access   Private
 router.post(
@@ -45,8 +45,8 @@ router.post(
     }
 );
 
-// @route    GET api/posts
-// @desc     Get all posts
+// @route    GET api/post
+// @desc     Get all post
 // @access   Private
 router.get('/', auth, async (req, res) => {
     try {
@@ -58,7 +58,7 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
-// @route    GET api/posts/:id
+// @route    GET api/post/:id
 // @desc     Get post by ID
 // @access   Private
 router.get('/:id', auth, async (req, res) => {
@@ -79,7 +79,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-// @route    DELETE api/posts/:id
+// @route    DELETE api/post/:id
 // @desc     Delete a post
 // @access   Private
 router.delete('/:id', auth, async (req, res) => {
@@ -107,7 +107,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
-// @route    PUT api/posts/like/:id
+// @route    PUT api/post/like/:id
 // @desc     Like a post
 // @access   Private
 router.put('/like/:id', auth, async (req, res) => {
@@ -133,7 +133,7 @@ router.put('/like/:id', auth, async (req, res) => {
     }
 });
 
-// @route    PUT api/posts/unlike/:id
+// @route    PUT api/post/unlike/:id
 // @desc     Like a post
 // @access   Private
 router.put('/unlike/:id', auth, async (req, res) => {
@@ -164,7 +164,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     }
 });
 
-// @route    POST api/posts/comment/:id
+// @route    POST api/post/comment/:id
 // @desc     Comment on a post
 // @access   Private
 router.post(
@@ -206,7 +206,7 @@ router.post(
     }
 );
 
-// @route    DELETE api/posts/comment/:id/:comment_id
+// @route    DELETE api/post/comment/:id/:comment_id
 // @desc     Delete comment
 // @access   Private
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
