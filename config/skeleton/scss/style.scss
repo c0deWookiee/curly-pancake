@@ -84,3 +84,37 @@ img {
     padding: 1rem;
     line-height: 1.8;
 }
+
+//profile page
+.profile-grid {
+    display: grid;
+    grid-template-areas: 'top top' 'about about' 'exp edu' 'github github';
+    grid-gap: 1rem;
+    .profile-top {
+        grid-area: top;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        img {
+            width: 16rem;
+        }
+        .icons a {
+            color: #fff;
+            margin: 0 0.3rem;
+        }
+    }
+    .profile-about {
+        grid-area: about;
+    }
+    .profile-exp {
+        grid-area: exp;
+    }
+    .profile-edu {
+        grid-area: edu;
+    }
+    .profile-github {
+        grid-area: github;
+    }
+}
