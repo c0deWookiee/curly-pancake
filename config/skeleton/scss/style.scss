@@ -11,7 +11,7 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-style: 1rem;
+    font-size: 1rem;
     line-height: 1.6;
     background-color: #fff;
     color: #333;
@@ -41,14 +41,14 @@ img {
     z-index: 1;
     width: 100%;
     top: 0;
-    border-bottom: solid 1px $primary-color;
+    border-bottom: solid 3px $primary-color;
     opacity: 0.9;
     ul {
         display: flex;
     }
     a {
         color: #fff;
-        pad: 0.45rem;
+        padding: 0.45rem;
         margin: 0 0.25rem;
         &:hover {
             color: $primary-color;
@@ -67,7 +67,7 @@ img {
         height: 100%;
         display: flex;
         flex-direction: column;
-        flex: 0 0 80%;
+        width: 80%;
         margin: auto;
         align-items: center;
         justify-content: center;
@@ -83,6 +83,7 @@ img {
     align-items: center;
     padding: 1rem;
     line-height: 1.8;
+    margin-bottom: 1rem;
 }
 
 //profile page
@@ -154,3 +155,23 @@ img {
         }
     }
 }
+
+//postpage
+.post-form-header {
+    padding: 0.5rem;
+}
+
+.post {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 2rem;
+    align-items: center;
+    & > div:first-child {
+        text-align: center;
+    }
+    img {
+        width: 150px;
+    }
+}
+//makesure media queries are the last to load
+@import 'mobile';
